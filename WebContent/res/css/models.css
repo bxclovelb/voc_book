@@ -1,0 +1,14 @@
+* {
+	margin: 0;
+	paddding: 0;
+	font-family: sans-serif;
+}
+
+.dialogBorder {
+	border: 2px solid #5c9ccc;
+}
+
+.nav-tabs li.active a,.nav-tabs li.active,.nav-tabs li.active a:hover{
+	background-color:#f9f6c8;
+	border:0;
+}
