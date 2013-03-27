@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+    <package name="vocbook" extends="json-default" namespace="/">
+		<action name="showNormal" class="action.UserAction" 
+			method="showNormal">
+			<result type="dispatcher">
+				WEB-INF/jsp/voc_book_normal_v.jsp
+			</result>
+		</action>
+		<action name="checkUserId" class="action.UserAction" 
+			method="checkUserId">
+			<result type="json"></result>
+		</action>
+		
+		<action name="getUserBand" class="action.UsersWordsAction" 
+			method="getUserBand">
+			<result type="json">
+			</result>
+		</action>
+    </package>
+</struts>

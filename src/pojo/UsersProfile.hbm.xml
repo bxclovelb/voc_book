@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="pojo">
+    <class name="UsersProfile" table="vocbook_users_profile" catalog="genway_vocabulary">
+        <id name="userId" type="string">
+            <column name="USER_ID" length="64" />
+            <generator class="assigned" />
+        </id>
+        <property name="band" type="byte">
+            <column name="BAND" not-null="true" />
+        </property>
+        <property name="dateTime" type="timestamp">
+            <column name="DATE_TIME" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>

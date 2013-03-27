@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-3-8 11:50:31 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping package="pojo">
+    <class name="UsersWords" table="vocbook_users_words" catalog="genway_vocabulary">
+        <composite-id name="id" class="UsersWordsId">
+            <key-property name="userId" type="string">
+                <column name="USER_ID" length="64" />
+            </key-property>
+            <key-property name="word" type="string">
+                <column name="WORD" length="128" />
+            </key-property>
+        </composite-id>
+        <property name="vocId" type="long">
+            <column name="VOC_ID" not-null="true" />
+        </property>
+        <property name="degree" type="byte">
+            <column name="DEGREE" not-null="true" />
+        </property>
+        <property name="notes" type="string">
+            <column name="NOTES" length="65535" />
+        </property>
+        <property name="isAdditional" type="boolean">
+            <column name="IS_ADDITIONAL" not-null="true" />
+        </property>
+        <property name="createDate" type="timestamp">
+            <column name="CREATE_DATE" length="19" not-null="true" />
+        </property>
+        <property name="alphabet" type="char">
+            <column name="ALPHABET" length="1" not-null="true" />
+        </property>
+        <property name="antiAlphabet" type="char">
+            <column name="ANTI_ALPHABET" length="1" not-null="true" />
+        </property>
+        <property name="catId" type="byte">
+            <column name="CAT_ID" not-null="true" />
+        </property>
+        <property name="exerciseDate" type="timestamp">
+            <column name="EXERCISE_DATE" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>
