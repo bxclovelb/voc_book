@@ -36,8 +36,8 @@
 		band = $("#hidden_band").val();
 		setCurrModel();
 		setWordsProcess();
-		//initPlayer();
-		//getWords('a',1);
+		initPlayer();
+		getWords('a',1);
 	});
 
 	function initPlayer(){
@@ -49,7 +49,7 @@
 
 	//根据 首字母,当前页和级别 生成分页
 	function createPagination(alphabet){
-		$.getJSON("/vocabulary/index.php/vocabulary_c/get_words_count/"+alphabet+"/"+band,
+		$.getJSON("/voc_book/getWordsCount?alphabet="+alphabet+"&theBand="+band,
 			function(data){
 				var pages = Math.ceil(data.count / 30);	
 				pagination(data,alphabet,pages);
@@ -62,7 +62,7 @@
 		$("#hidden_param").val(alphabet);
 		$.ajax({
 			type : "get",
-			url : "/vocabulary/index.php/vocabulary_c/get_words/"+alphabet+"/"+pageNo+"/"+userId+"/"+band+"/"+Math.random(),
+			url : "/voc_book/getWords?alphabet="+alphabet+"&pageNo="+pageNo+"&userId="+userId+"&theBand="+band+"&rand="+Math.random(),
 			dataType : "json",
 			success : function(data, textStatus) {
 				//清除原有内容
@@ -77,8 +77,6 @@
 
 				//设置tooltip状态
 				toggleTooltip();
-				
-
 			}
 		});
 	}
@@ -279,7 +277,7 @@
 	<input type="hidden" id="hidden_userId" value="<s:property value="userId"/>">
 	<input type="hidden" id="hidden_param" value="a">
 	<input type="hidden" id="hidden_pageNo" value="1">
-	<input type="hidden" id="hidden_band" value="<s:property value="band"/>">
+	<input type="hidden" id="hidden_band" value="<s:property value="theBand"/>">
 	<input type="hidden" id="hidden_model" value="<s:property value="model"/>">
 
 	<script>

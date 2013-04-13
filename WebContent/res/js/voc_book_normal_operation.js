@@ -1,9 +1,15 @@
 //根据答题情况更新数据库
 	function updateDegreeByExer(word,score) {
 		$.ajax({
-			url:"/vocabulary/index.php/vocabulary_c/update_degree_by_exer/"+userId+"/"+word+"/"+score+"/"+Math.random(),
+			url:"/voc_book/updateDegreeByExer?userId="+userId+"&word="+word+
+				"&score="+score+"&rand="+Math.random(),
 			type:"get",
-			dataType:"json"
+			dataType:"json",
+			success:function(){
+				var param = $("#hidden_param").val();
+				var pageNo = $("#hidden_pageNo").val();
+				getWords(param,pageNo);
+			}
 		});
 	} 	
 
@@ -11,11 +17,11 @@
 	function getRelatedExercise(word){
 		var param = $("#hidden_param").val();
 		var pageNo = $("#hidden_pageNo").val();
-		$.getJSON("/vocabulary/index.php/vocabulary_c/get_related_exercise/"+word,
+		$.getJSON("/voc_book/getRelatedExercise?word="+word,
 			function(data){
 				$("#div_exercise_data").html("");
 				var ans = new Array();
-				for(var i=0;i<data.length;i++){
+				for(var i=0;i<data.relatedExercise.length;i++){
 					var div = $("<div id='div_question_"+i+"'>"+"</div>");
 					if(i%2 == 0){
 						div.css("background-color","#c8e3f9");
@@ -24,25 +30,25 @@
 					}
 					$("#div_exercise_data").append(div);
 
-					if(data[i].content == null || data[i].content == ""){
+					if(data.relatedExercise[i][6] == null || data.relatedExercise[i][6] == ""){
 						div.append("<span class='badge badge-success'>"+(i+1) + "</span> <strong>选择单词的正确释义:</strong>  <span id='span_result_"+i+"'></span> <br/>");
 					}else{
-						div.append("<span class='badge badge-success'>"+(i+1) + "</span> <strong>" + data[i].content + "</strong>  <span id='span_result_"+i+"'></span><br/>");
+						div.append("<span class='badge badge-success'>"+(i+1) + "</span> <strong>" + data.relatedExercise[i][6] + "</strong>  <span id='span_result_"+i+"'></span><br/>");
 					}
 					
 					div.append("<form id='form_"+i+"'><table style='width:100%'><tr>"
-							+"<td><input type='radio' name='choice' style='width:20px' value='"+data[i].choice_a+"'><span id='span_a_"+i+"'>A."+data[i].choice_a+"</span></td>"
-							+"<td><input type='radio' name='choice' style='width:20px' value='"+data[i].choice_b+"'><span id='span_b_"+i+"'>B."+data[i].choice_b+"</span></td>"
-							+"<td><input type='radio' name='choice' style='width:20px' value='"+data[i].choice_c+"'><span id='span_c_"+i+"'>C."+data[i].choice_c+"</span></td>"
-							+"<td><input type='radio' name='choice' style='width:20px' value='"+data[i].choice_d+"'><span id='span_d_"+i+"'>D."+data[i].choice_d+"</span></td>"
-							+"</tr></table>"+"</form>");
+						+"<td><input type='radio' name='choice' style='width:20px' value='"+data.relatedExercise[i][2]+"'><span id='span_a_"+i+"'>A."+data.relatedExercise[i][2]+"</span></td>"
+						+"<td><input type='radio' name='choice' style='width:20px' value='"+data.relatedExercise[i][3]+"'><span id='span_b_"+i+"'>B."+data.relatedExercise[i][3]+"</span></td>"
+						+"<td><input type='radio' name='choice' style='width:20px' value='"+data.relatedExercise[i][4]+"'><span id='span_c_"+i+"'>C."+data.relatedExercise[i][4]+"</span></td>"
+						+"<td><input type='radio' name='choice' style='width:20px' value='"+data.relatedExercise[i][5]+"'><span id='span_d_"+i+"'>D."+data.relatedExercise[i][5]+"</span></td>"
+						+"</tr></table>"+"</form>");
 				}
 				
-				if(data.length != 0){
+				if(data.relatedExercise.length != 0){
 					var button = $("<input type='button' value='     提交     ' class='btn btn-large btn-info'>");
 					button.click(function(){
 						//清理标签
-						for(var i=0;i<data.length;i++){
+						for(var i=0;i<data.relatedExercise.length;i++){
 							$("#span_result_"+i).removeClass();
 							$("#span_result_"+i).html("");
 							$("#span_a_"+i).removeClass();
@@ -52,8 +58,8 @@
 						}
 						
 						var rightCount = 0;//记录答对题数
-						for(var i=0;i<data.length;i++){
-							if(data[i].choice == $("#form_"+i+" :checked").val()){//答对
+						for(var i=0;i<data.relatedExercise.length;i++){
+							if(data.relatedExercise[i][1] == $("#form_"+i+" :checked").val()){//答对
 								$("#span_result_"+i).addClass("label label-success");
 								$("#span_result_"+i).html("<i class='icon-ok'></i");
 								rightCount++;
@@ -61,20 +67,20 @@
 								$("#span_result_"+i).addClass("label label-important");
 								$("#span_result_"+i).html("<i class='icon-remove'></i");
 								
-								if(data[i].choice == data[i].choice_a){
+								if(data.relatedExercise[i][1] == data.relatedExercise[i][2]){
 									$("#span_a_"+i).addClass("label label-warning");
-								}else if(data[i].choice == data[i].choice_b){
+								}else if(data.relatedExercise[i][1] == data.relatedExercise[i][3]){
 									$("#span_b_"+i).addClass("label label-warning");
-								}else if(data[i].choice == data[i].choice_c){
+								}else if(data.relatedExercise[i][1] == data.relatedExercise[i][4]){
 									$("#span_c_"+i).addClass("label label-warning");
-								}else if(data[i].choice == data[i].choice_d){
+								}else if(data.relatedExercise[i][1] == data.relatedExercise[i][5]){
 									$("#span_d_"+i).addClass("label label-warning");
 								}
 							}
 						}
 						
 						//根据答题情况更新数据库
-						var score = Math.ceil(rightCount*100/data.length);
+						var score = Math.ceil(rightCount*100/data.relatedExercise.length);
 						updateDegreeByExer(word,score);
 						
 						//用户提示
@@ -100,7 +106,7 @@
 						$("#div_message").dialog("open");
 						
 						//更新显示
-						getWords(param,pageNo);
+						//getWords(param,pageNo);
 					});
 					var d = $("<div align='center'></div>")
 					d.append(button);
@@ -126,29 +132,29 @@
 
 	// 获得单词的相关词
 	function getAssociation(word){
-		$.getJSON("/vocabulary/index.php/vocabulary_c/get_association/"+word,
+		$.getJSON("/voc_book/getAssociation?word="+word,
 				function(data){
 				for(var i=0;i<3;i++){
 					clearDiv("div_association_"+(i+1));
 				}
-				if(data[0] == null){
+				if(data.association.length == 0){
 					$("#div_association_1").append("无联想词。");
 				}
-				for(var i=0;i<data.length;i++){
-					var button = $("<button style='width:150px;height:40px;margin-left:25px;border:1px solid #ddd' class='btn btn-danger' type='button'>"+data[i].relativeword+"</button>");
-					button.bind("click",{relativeword:data[i].relativeword},function(event){getAssociation(event.data.relativeword);});
+				for(var i=0;i<data.association.length;i++){
+					var button = $("<button style='width:150px;height:40px;margin-left:25px;border:1px solid #ddd' class='btn btn-danger' type='button'>"+data.association[i]+"</button>");
+					button.bind("click",{relativeword:data.association[i]},function(event){getAssociation(event.data.relativeword);});
 					$("#div_association_"+(i%3+1)).append(button);
 					$("#div_association_"+(i%3+1)).append("<br/>");
 
 					//题目按钮
 					var btn_exer = $("<a class='btn btn-warning btn-mini' type='button' style='float:right;font-size:12px;margin:0'>题</a>");
-					btn_exer.bind("click",{relativeword:data[i].relativeword},function(event){
+					btn_exer.bind("click",{relativeword:data.association[i]},function(event){
 						getRelatedExercise(event.data.relativeword);
 					});
 					$("#div_association_"+(i%3+1)).append(btn_exer);
 					//详细按钮
 					var btn_details = $("<a class='btn btn-info btn-mini' type='button' style='float:right;font-size:12px;margin:0'>详</a>");
-					btn_details.bind("click",{relativeword:data[i].relativeword},function(event){
+					btn_details.bind("click",{relativeword:data.association[i]},function(event){
 						getDetails(event.data.relativeword);
 						getNotes(event.data.relativeword);
 					});
@@ -181,19 +187,19 @@
 			hide:{duration:1},
 			show:{duration:1}
 		});
-		$.getJSON("/vocabulary/index.php/vocabulary_c/get_first_detail/"+button.text(),
+		$.getJSON("/voc_book/getFirstDetail?word="+button.text(),
 				function(data){
 				var str = "无"; 
 				if(data != null && data != ""){
-					str = "<p><i class='icon-hand-right'></i>单词："+data[0].word+"</p>";
-					if(data[0].meaning_ch != null && data[0].meaning_ch != ""){
-						str += "<p><i class='icon-hand-right'></i>中文解释：" + data[0].meaning_ch+"</p>";
+					str = "<p><i class='icon-hand-right'></i>单词："+data.firstDetail[0][0]+"</p>";
+					if(data.firstDetail[0][1] != null && data.firstDetail[0][1] != ""){
+						str += "<p><i class='icon-hand-right'></i>中文解释：" + data.firstDetail[0][1]+"</p>";
 					}
-					if(data[0].meaning_en != null && data[0].meaning_en != ""){
-						str += "<p><i class='icon-hand-right'></i>英文解释：" + data[0].meaning_en+"</p>";
+					if(data.firstDetail[0][2] != null && data.firstDetail[0][2] != ""){
+						str += "<p><i class='icon-hand-right'></i>英文解释：" + data.firstDetail[0][2]+"</p>";
 					}
-					if(data[0].example != null && data[0].example != ""){
-						str += "<p><i class='icon-hand-right'></i>例子：" + data[0].example+"</p>";
+					if(data.firstDetail[0][3] != null && data.firstDetail[0][3] != ""){
+						str += "<p><i class='icon-hand-right'></i>例子：" + data.firstDetail[0][3]+"</p>";
 					}
 				}
 				button.tooltip("option","content",str);
@@ -202,24 +208,24 @@
 	
 	// 获得单词的详细信息 
 	function getDetails(word){
-		$.getJSON("/vocabulary/index.php/vocabulary_c/get_details/"+word,
+		$.getJSON("/voc_book/getDetails?word="+word,
 				function(data){
 				$("#div_details_data").html("");
-				for(i = 0;i < data.length;i++){
-					if(data.length > 1){
+				for(i = 0;i < data.details.length;i++){
+					if(data.details.length > 1){
 						$("#div_details_data").append("<p><strong>["+(i+1)+"]</strong></p>");
 					}
 					
-					if(data[i].meaning_ch != null && data[i].meaning_ch != ""){
-						str = "中文解释：" + data[i].meaning_ch;
+					if(data.details[i][1] != null && data.details[i][1] != ""){
+						str = "中文解释：" + data.details[i][1];
 						$("#div_details_data").append("<p>"+str+"</p>");
 					}
-					if(data[i].meaning_en != null && data[i].meaning_en != ""){
-						str = "英文解释：" + data[i].meaning_en;
+					if(data.details[i][2] != null && data.details[i][2] != ""){
+						str = "英文解释：" + data.details[i][2];
 						$("#div_details_data").append("<p>"+str+"</p>");
 					}
-					if(data[i].example != null && data[i].example != ""){
-						str = "例子：" + data[i].example;
+					if(data.details[i][3] != null && data.details[i][3] != ""){
+						str = "例子：" + data.details[i][3];
 						$("#div_details_data").append("<p>"+str+"</p>");
 					}
 					$("#div_details_data").append("<br/>");
@@ -241,11 +247,11 @@
 	
 	//获得用户笔记
 	function getNotes(word){
-		$.getJSON("/vocabulary/index.php/vocabulary_c/get_notes/"+userId+"/"+word+"/"+Math.random(),
+		$.getJSON("/voc_book/getNotes?userId="+userId+"&word="+word+"&rand="+Math.random(),
 				function(data){
 				$("#notes").val("");
-				if(data != null && data != ""){
-					$("#notes").val(data[0].notes);
+				if(data.notes.length != 0){
+					$("#notes").val(data.notes[0]);
 				}
 		});
 	}
@@ -254,7 +260,7 @@
 	function saveNotes(){
 		if($("#notes").val() != null && $("#notes").val() != ""){
 			$.ajax({
-				url:"/vocabulary/index.php/vocabulary_c/save_notes"+"/"+Math.random(),
+				url:"/voc_book/index.php/vocabulary_c/save_notes"+"/"+Math.random(),
 				type:"post",
 				dataType:"json",
 				data:{
@@ -307,7 +313,7 @@
 	function updateDegree(word){
 		$.ajax({
 			type : "get",
-			url : "/vocabulary/index.php/vocabulary_c/update_degree/"+userId+"/"+word+"/"+Math.random(),
+			url : "/voc_book/updateDegree?userId="+userId+"&word="+word+"&rand="+Math.random(),
 			dataType : "json",
 			success : function(data, textStatus) {
 				setWordsProcess();
@@ -362,13 +368,13 @@
 	function switchModel(){
 		var model = $("#select_model :selected").val();
 		if(model == 0){
-			window.location = "/vocabulary/index.php/vocabulary_c/show_normal/"+userId+"/"+band+"/0";
+			window.location = "/voc_book/index.php/vocabulary_c/show_normal/"+userId+"/"+band+"/0";
 		}else if(model == 1){
-			window.location = "/vocabulary/index.php/vocabulary_c/show_inverse/"+userId+"/"+band+"/1";
+			window.location = "/voc_book/index.php/vocabulary_c/show_inverse/"+userId+"/"+band+"/1";
 		}else if(model == 2){
-			window.location = "/vocabulary/index.php/vocabulary_c/show_category/"+userId+"/"+band+"/2";
+			window.location = "/voc_book/index.php/vocabulary_c/show_category/"+userId+"/"+band+"/2";
 		}else if(model == 3){
-			window.location = "/vocabulary/index.php/vocabulary_c/show_notes/"+userId+"/"+band+"/3";
+			window.location = "/voc_book/index.php/vocabulary_c/show_notes/"+userId+"/"+band+"/3";
 		}
 	}
 	
@@ -388,13 +394,13 @@
 	function setImportant(important,button,parentDiv){
 		if(important){
 			if($.browser.msie&&parseInt($.browser.version,10)===6){
-				//button.css("background-image","url('/vocabulary/res/images/star.gif')");
-				var span = $("<span style='position:absolute;'><img src='/vocabulary/res/images/flag.png'></span>");
+				//button.css("background-image","url('/voc_book/res/images/star.gif')");
+				var span = $("<span style='position:absolute;'><img src='/voc_book/res/images/flag.png'></span>");
 				parentDiv.append(span);
 				span.offset({top:span.offset().top,left:span.offset().left+110});
 			}else{
-				//button.css("background-image","url('/vocabulary/res/images/star.png')");
-				var span = $("<span style='position:absolute;'><img src='/vocabulary/res/images/flag.png'></span>");
+				//button.css("background-image","url('/voc_book/res/images/star.png')");
+				var span = $("<span style='position:absolute;'><img src='/voc_book/res/images/flag.png'></span>");
 				parentDiv.append(span);
 				span.offset({top:span.offset().top,left:span.offset().left+110});
 			}
@@ -494,17 +500,17 @@
 	
 	//生成各按钮
 	function createButtons(data){
-		for(var i=0;i<data.result.length;i++){
-			var button = getWordButton(data.result[i].word);
+		for(var i=0;i<data.words.length;i++){
+			var button = getWordButton(data.words[i]);
 
 			//如果是重点词则加图标
-			setImportant(data.important[i],button,$("#div_word_"+(i%6+1)));
+			setImportant(data.importants[i],button,$("#div_word_"+(i%6+1)));
 
 			//根据熟悉程度改变按钮颜色
-			setDegree(data.degree[i],button);
+			setDegree(data.degrees[i],button);
 
 			//绑定点击更换单词熟悉度
-			bindChangeDegree(data.result[i].word,button,data.degree[i]);
+			bindChangeDegree(data.words[i],button,data.degrees[i]);
 			
 			//单词的弹出解释
 			setFirstDetail(button);
@@ -513,7 +519,7 @@
 			$("#div_word_"+(i%6+1)).append(button);
 
 			//添加 练习，详细，联系 三个按钮
-			addTheThreeButtons(data.result[i].word,i);
+			addTheThreeButtons(data.words[i],i);
 			
 			$("#div_word_"+(i%6+1)).append("<br/><br/><br/><br/>");
 		}
@@ -569,12 +575,12 @@
 			$("#a_tooltip_button").toggle(
 				function(){
 					tooltip_on = false;
-					$("#a_tooltip_button img").attr("src","/vocabulary/res/images/tooltip_close.png")
+					$("#a_tooltip_button img").attr("src","/voc_book/res/images/tooltip_close.png")
 					$(".tooltip-flag").tooltip("disable");
 				},
 				function(){
 					tooltip_on = true;
-					$("#a_tooltip_button img").attr("src","/vocabulary/res/images/tooltip_open.png");
+					$("#a_tooltip_button img").attr("src","/voc_book/res/images/tooltip_open.png");
 					$(".tooltip-flag").tooltip("enable");
 				}
 			);
@@ -583,12 +589,12 @@
 			$("#a_tooltip_button").toggle(
 					function(){
 						tooltip_on = true;
-						$("#a_tooltip_button img").attr("src","/vocabulary/res/images/tooltip_open.png");
+						$("#a_tooltip_button img").attr("src","/voc_book/res/images/tooltip_open.png");
 						$(".tooltip-flag").tooltip("enable");
 					},
 					function(){
 						tooltip_on = false;
-						$("#a_tooltip_button img").attr("src","/vocabulary/res/images/tooltip_close.png")
+						$("#a_tooltip_button img").attr("src","/voc_book/res/images/tooltip_close.png")
 						$(".tooltip-flag").tooltip("disable");
 					}
 				);

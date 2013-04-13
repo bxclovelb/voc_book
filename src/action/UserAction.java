@@ -5,7 +5,7 @@ import com.opensymphony.xwork2.ActionSupport;
 public class UserAction extends ActionSupport{
 	private String userId = "";
 	private int model = 0;
-	private int theband = 0;
+	private int theBand = 0;
 
 	public String showNormal(){
 		return SUCCESS;
@@ -34,12 +34,12 @@ public class UserAction extends ActionSupport{
 		this.model = model;
 	}
 	
-	public int getTheband() {
-		return theband;
+	public int getTheBand() {
+		return theBand;
 	}
 	
-	public void setTheband(int band) {
-		this.theband = band;
+	public void setTheBand(int theBand) {
+		this.theBand = theBand;
 	}
 	
 }

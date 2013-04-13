@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-3-30 20:50:55 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping package="pojo">
+    <class name="Words" table="vocbook_words" catalog="genway_vocabulary">
+        <id name="vocId" type="long">
+            <column name="VOC_ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="wid" type="java.lang.Long">
+            <column name="WID" />
+        </property>
+        <property name="word" type="string">
+            <column name="WORD" length="100" not-null="true" />
+        </property>
+        <property name="alphabet" type="char">
+            <column name="ALPHABET" length="1" not-null="true" />
+        </property>
+        <property name="antiAlphabet" type="char">
+            <column name="ANTI_ALPHABET" length="1" not-null="true" />
+        </property>
+        <property name="antiWord" type="string">
+            <column name="ANTI_WORD" length="128" not-null="true" />
+        </property>
+        <property name="alias1" type="string">
+            <column name="ALIAS_1" length="50" />
+        </property>
+        <property name="alias2" type="string">
+            <column name="ALIAS_2" length="50" />
+        </property>
+        <property name="wordLevel" type="java.lang.Integer">
+            <column name="WORD_LEVEL" />
+        </property>
+        <property name="orderId" type="int">
+            <column name="ORDER_ID" not-null="true" />
+        </property>
+        <property name="meaningEn" type="string">
+            <column name="MEANING_EN" length="65535" />
+        </property>
+        <property name="meaningCh" type="string">
+            <column name="MEANING_CH" length="65535" />
+        </property>
+        <property name="designerId" type="java.lang.Long">
+            <column name="DESIGNER_ID" />
+        </property>
+        <property name="type" type="string">
+            <column name="TYPE" length="30" />
+        </property>
+        <property name="matchingId" type="java.lang.Long">
+            <column name="MATCHING_ID" />
+        </property>
+        <property name="lastModified" type="timestamp">
+            <column name="LAST_MODIFIED" length="19" not-null="true" />
+        </property>
+        <property name="status" type="int">
+            <column name="STATUS" not-null="true" />
+        </property>
+        <property name="band3" type="boolean">
+            <column name="BAND_3" not-null="true" />
+        </property>
+        <property name="band4" type="boolean">
+            <column name="BAND_4" not-null="true" />
+        </property>
+        <property name="band6" type="boolean">
+            <column name="BAND_6" not-null="true" />
+        </property>
+        <property name="bandGraduate" type="boolean">
+            <column name="BAND_GRADUATE" not-null="true" />
+        </property>
+        <property name="bandPets1" type="byte">
+            <column name="BAND_PETS_1" not-null="true" />
+        </property>
+        <property name="bandPets2" type="boolean">
+            <column name="BAND_PETS_2" not-null="true" />
+        </property>
+        <property name="bandPets3" type="boolean">
+            <column name="BAND_PETS_3" not-null="true" />
+        </property>
+        <property name="bandPets4" type="boolean">
+            <column name="BAND_PETS_4" not-null="true" />
+        </property>
+        <property name="bandPets5" type="boolean">
+            <column name="BAND_PETS_5" not-null="true" />
+        </property>
+        <property name="importantBand3" type="boolean">
+            <column name="IMPORTANT_BAND_3" not-null="true" />
+        </property>
+        <property name="importantBand4" type="boolean">
+            <column name="IMPORTANT_BAND_4" not-null="true" />
+        </property>
+        <property name="importantBand6" type="boolean">
+            <column name="IMPORTANT_BAND_6" not-null="true" />
+        </property>
+        <property name="importantBandGraduate" type="boolean">
+            <column name="IMPORTANT_BAND_GRADUATE" not-null="true" />
+        </property>
+        <property name="importantPets1" type="boolean">
+            <column name="IMPORTANT_PETS_1" not-null="true" />
+        </property>
+        <property name="importantPets2" type="boolean">
+            <column name="IMPORTANT_PETS_2" not-null="true" />
+        </property>
+        <property name="importantPets3" type="boolean">
+            <column name="IMPORTANT_PETS_3" not-null="true" />
+        </property>
+        <property name="importantPets4" type="boolean">
+            <column name="IMPORTANT_PETS_4" not-null="true" />
+        </property>
+        <property name="importantPets5" type="boolean">
+            <column name="IMPORTANT_PETS_5" not-null="true" />
+        </property>
+        <property name="catId" type="byte">
+            <column name="CAT_ID" not-null="true" />
+        </property>
+        <property name="example" type="string">
+            <column name="EXAMPLE" length="65535" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

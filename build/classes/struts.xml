@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+    <package name="vocbook" extends="json-default" namespace="/">
+		<action name="showNormal" class="action.UserAction" 
+			method="showNormal">
+			<result type="dispatcher">
+				WEB-INF/jsp/voc_book_normal_v.jsp
+			</result>
+		</action>
+		<action name="checkUserId" class="action.UserAction" 
+			method="checkUserId">
+			<result type="json"></result>
+		</action>
+		
+		<action name="getUserBand" class="action.UsersWordsAction" 
+			method="getUserBand">
+			<result type="json">
+			</result>
+		</action>
+		
+		<action name="getCountDiffDegree" class="action.UsersWordsAction" 
+			method="getCountDiffDegree">
+			<result type="json">
+				<param name="root">data</param>
+			</result>
+		</action>
+		
+		<action name="getWords" class="action.UsersWordsAction" 
+			method="getWords">
+			<result type="json">
+				<param name="root">data</param>
+			</result>
+		</action>
+		
+		<action name="getWordsCount" class="action.UsersWordsAction" 
+			method="getWordsCount">
+			<result type="json">
+				<param name="root">data</param>
+			</result>
+		</action>
+		<action name="updateDegree" class="action.UsersWordsAction" 
+			method="updateDegree">
+			<result type="json">
+				<param name="root">data</param>
+			</result>
+		</action>
+		<action name="getFirstDetail" class="action.UsersWordsAction" 
+			method="getFirstDetail">
+			<result type="json">
+				<param name="root">data</param>
+			</result>
+		</action>
+		<action name="getAssociation" class="action.UsersWordsAction" 
+			method="getAssociation">
+			<result type="json">
+				<param name="root">data</param>
+			</result>
+		</action>
+		<action name="getRelatedExercise" class="action.UsersWordsAction" 
+			method="getRelatedExercise">
+			<result type="json">
+				<param name="root">data</param>
+			</result>
+		</action>
+		<action name="updateDegreeByExer" class="action.UsersWordsAction" 
+			method="updateDegreeByExer">
+			<result type="json">
+				<param name="root">data</param>
+			</result>
+		</action>
+		<action name="getDetails" class="action.UsersWordsAction" 
+			method="getDetails">
+			<result type="json">
+				<param name="root">data</param>
+			</result>
+		</action>
+		<action name="getNotes" class="action.UsersWordsAction" 
+			method="getNotes">
+			<result type="json">
+				<param name="root">data</param>
+			</result>
+		</action>
+    </package>
+    
+</struts>
