@@ -345,4 +345,34 @@ public class UsersWordsDaoImpl extends BaseDao implements UsersWordsDao {
 		
 		return notes;
 	}
+	
+	@Override
+	public BigInteger getWordsCountInverse(int theBand, String alphabet) {
+		String bandStr = getBandStr(theBand,false);
+		
+		String sql = "SELECT COUNT(DISTINCT word) count FROM vocbook_words "+
+				"WHERE anti_alphabet = '"+alphabet+"' AND order_id = 1 AND "+bandStr;
+		Session session = getSessionFactory().openSession();
+		SQLQuery query = session.createSQLQuery(sql);
+		List list = query.list();
+		
+		session.close();
+		
+		return (BigInteger)list.get(0);
+	}
+	
+	@Override
+	public List<String> getWordsInverse(int theBand, String alphabet, int from,
+			int count) {
+		String bandStr = getBandStr(theBand,false);
+		String sql = "SELECT DISTINCT word FROM vocbook_words WHERE anti_alphabet = '"+
+				alphabet+"' AND order_id = 1 AND "+bandStr+" LIMIT "+from+","+count;
+		Session session = getSessionFactory().openSession();
+		SQLQuery query = session.createSQLQuery(sql);
+		List words = query.list();
+		
+		session.close();
+		
+		return words;
+	}
 }

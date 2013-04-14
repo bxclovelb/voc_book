@@ -102,6 +102,35 @@ public class UsersWordsService {
 		
 		return data;
 	}
+
+	public Map getWordsCountInverse(String alphabet, int theBand) {
+		Map data = new HashMap();
+		
+		BigInteger count = usersWordsDao.getWordsCountInverse(theBand,alphabet);
+		data.put("count", count);
+		
+		return data;
+	}
+	
+	public Map<String, Object> getWordsInverse(String userId, int theBand,
+			String alphabet, int pageNo) {
+		Map data = new HashMap();
+		
+		List<String> words = usersWordsDao.getWordsInverse(theBand,alphabet,(pageNo-1)*30,30);
+		data.put("words",words);
+		
+		if(words.size() != 0){
+			List<Byte> degrees = usersWordsDao.getDegrees(userId,words);
+			data.put("degrees",degrees);
+			
+			List<Boolean> importants = usersWordsDao.getImportants(theBand,words);
+			data.put("importants",importants);
+		}
+		
+		
+		return data;
+	}
+	
 	
 	
 	

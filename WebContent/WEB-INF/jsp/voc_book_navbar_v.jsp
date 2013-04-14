@@ -1,3 +1,5 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="/struts-tags" prefix="s" %>
 <div class="navbar navbar-fixed-top">
 	<div class="navbar-inner">
 		<img src="/voc_info/res/images/bingo.png" style="float: left"> <a

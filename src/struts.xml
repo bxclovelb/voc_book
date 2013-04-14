@@ -83,6 +83,25 @@
 				<param name="root">data</param>
 			</result>
 		</action>
+		
+		<action name="showInverse" class="action.UsersWordsAction" 
+			method="showInverse">
+			<result type="dispatcher">
+				WEB-INF/jsp/voc_book_inverse_v.jsp
+			</result>
+		</action>
+		<action name="getWordsCountInverse" class="action.UsersWordsAction" 
+			method="getWordsCountInverse">
+			<result type="json">
+				<param name="root">data</param>
+			</result>
+		</action>
+		<action name="getWordsInverse" class="action.UsersWordsAction" 
+			method="getWordsInverse">
+			<result type="json">
+				<param name="root">data</param>
+			</result>
+		</action>
     </package>
     
 </struts>

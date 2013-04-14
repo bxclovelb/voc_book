@@ -86,6 +86,23 @@ public class UsersWordsAction extends ActionSupport {
 	}
 	
 	
+	public String showInverse(){
+		return SUCCESS;
+	}
+	
+	public String getWordsCountInverse(){
+		data = usersWordsService.getWordsCountInverse(alphabet,theBand);
+		return SUCCESS;
+	}
+	
+	public String getWordsInverse(){
+		data = usersWordsService.getWordsInverse(userId,theBand,alphabet,pageNo);
+		return SUCCESS;
+	}
+	
+	
+	
+	
 	
 	public String getUserId() {
 		return userId;

@@ -18,4 +18,7 @@ public interface UsersWordsDao {
 	public void updateDegreeByExer(String userId, String word, byte score);
 	public List getDetails(String word);
 	public List getNotes(String userId, String word);
+	public BigInteger getWordsCountInverse(int theBand, String alphabet);
+	public List<String> getWordsInverse(int theBand, String alphabet, int from,
+			int count);
 }
