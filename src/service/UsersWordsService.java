@@ -131,8 +131,32 @@ public class UsersWordsService {
 		return data;
 	}
 	
-	
-	
+	public Map<String, Object> getWordsCountCategory(int catId, int theBand) {
+		Map data = new HashMap();
+		
+		BigInteger count = usersWordsDao.getWordsCountCategory(theBand,catId);
+		data.put("count", count);
+		
+		return data;
+	}
+
+	public Map<String, Object> getWordsCategory(int catId, int pageNo,
+			String userId, int theBand) {
+		Map data = new HashMap();
+		
+		List<String> words = usersWordsDao.getWordsCategory(theBand,catId,(pageNo-1)*30,30);
+		data.put("words",words);
+		
+		if(words.size() != 0){
+			List<Byte> degrees = usersWordsDao.getDegrees(userId,words);
+			data.put("degrees",degrees);
+			
+			List<Boolean> importants = usersWordsDao.getImportants(theBand,words);
+			data.put("importants",importants);
+		}
+		
+		return data;
+	}
 	
 
 	public UsersWordsDao getUsersWordsDao() {

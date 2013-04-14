@@ -375,4 +375,33 @@ public class UsersWordsDaoImpl extends BaseDao implements UsersWordsDao {
 		
 		return words;
 	}
+	
+	@Override
+	public BigInteger getWordsCountCategory(int theBand, int catId) {
+		String bandStr = getBandStr(theBand,false);
+		
+		String sql = "SELECT COUNT(DISTINCT c.word) count FROM vocbook_words w,cat_"
+				+catId+" c"+" WHERE w.word = c.word AND w."+bandStr;
+		Session session = getSessionFactory().openSession();
+		SQLQuery query = session.createSQLQuery(sql);
+		List list = query.list();
+		
+		session.close();
+		
+		return (BigInteger)list.get(0);
+	}
+	
+	@Override
+	public List<String> getWordsCategory(int theBand, int catId, int from, int count) {
+		String bandStr = getBandStr(theBand,false);
+		String sql = "SELECT DISTINCT c.word FROM vocbook_words w,cat_"+catId+" c"
+				+" WHERE w.word = c.word AND w."+bandStr+" LIMIT "+from+","+count;
+		Session session = getSessionFactory().openSession();
+		SQLQuery query = session.createSQLQuery(sql);
+		List words = query.list();
+		
+		session.close();
+		
+		return words;
+	}
 }

@@ -17,6 +17,7 @@ public class UsersWordsAction extends ActionSupport {
 	private String alphabet = "";
 	private String word = "";
 	private byte score = 0;
+	private int catId = 0;
 	
 	private UsersWordsService usersWordsService;
 	
@@ -100,6 +101,20 @@ public class UsersWordsAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
+	public String showCategory(){
+		return SUCCESS;
+	}
+	
+	public String getWordsCountCategory(){
+		data = usersWordsService.getWordsCountCategory(catId,theBand);
+		return SUCCESS;
+	}
+	
+	public String getWordsCategory(){
+		data = usersWordsService.getWordsCategory(catId,pageNo,userId,theBand);
+		return SUCCESS;
+	}
+	
 	
 	
 	
@@ -161,6 +176,14 @@ public class UsersWordsAction extends ActionSupport {
 
 	public void setScore(byte score) {
 		this.score = score;
+	}
+
+	public int getCatId() {
+		return catId;
+	}
+
+	public void setCatId(int catId) {
+		this.catId = catId;
 	}
 
 	//@JSON(serialize=true)

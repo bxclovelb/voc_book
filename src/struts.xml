@@ -102,6 +102,25 @@
 				<param name="root">data</param>
 			</result>
 		</action>
+		
+		<action name="showCategory" class="action.UsersWordsAction" 
+			method="showCategory">
+			<result type="dispatcher">
+				WEB-INF/jsp/voc_book_category_v.jsp
+			</result>
+		</action>
+		<action name="getWordsCountCategory" class="action.UsersWordsAction" 
+			method="getWordsCountCategory">
+			<result type="json">
+				<param name="root">data</param>
+			</result>
+		</action>
+		<action name="getWordsCategory" class="action.UsersWordsAction" 
+			method="getWordsCategory">
+			<result type="json">
+				<param name="root">data</param>
+			</result>
+		</action>
     </package>
     
 </struts>

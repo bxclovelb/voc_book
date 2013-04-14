@@ -21,4 +21,6 @@ public interface UsersWordsDao {
 	public BigInteger getWordsCountInverse(int theBand, String alphabet);
 	public List<String> getWordsInverse(int theBand, String alphabet, int from,
 			int count);
+	public BigInteger getWordsCountCategory(int theBand, int catId);
+	public List<String> getWordsCategory(int theBand, int catId, int i, int j);
 }
