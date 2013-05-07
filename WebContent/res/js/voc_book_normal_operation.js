@@ -368,13 +368,13 @@
 	function switchModel(){
 		var model = $("#select_model :selected").val();
 		if(model == 0){
-			window.location = "/voc_book/index.php/vocabulary_c/show_normal/"+userId+"/"+band+"/0";
+			window.location = "/voc_book/showNormal?userId="+userId+"&theBand="+band+"&model=0";
 		}else if(model == 1){
-			window.location = "/voc_book/index.php/vocabulary_c/show_inverse/"+userId+"/"+band+"/1";
+			window.location = "/voc_book/showInverse?userId="+userId+"&theBand="+band+"&model=1";
 		}else if(model == 2){
-			window.location = "/voc_book/index.php/vocabulary_c/show_category/"+userId+"/"+band+"/2";
+			window.location = "/voc_book/showCategory?userId="+userId+"&theBand="+band+"&model=2";
 		}else if(model == 3){
-			window.location = "/voc_book/index.php/vocabulary_c/show_notes/"+userId+"/"+band+"/3";
+			window.location = "/voc_book/showNotes/"+userId+"&theBand="+band+"&model=3";
 		}
 	}
 	

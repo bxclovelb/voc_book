@@ -2,7 +2,7 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <div id="div_head" class="div-head"
 	style="margin-top:40px;color: white; font-size: 40pt; padding: 1%; height: auto;background: url('/voc_book/res/images/bg_head.jpg');">
-	<img src="/voc_book/res/images/head.png"> <span style="margin-left: 2%">冰果英语词汇本</span>
+	<img src="/voc_book/res/images/head.png"> <span style="margin-left: 2%">英语词汇本</span>
 </div>
 <div
 	style="background-color: #54aff7; height: 10px; width: 100%"></div>

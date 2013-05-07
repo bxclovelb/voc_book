@@ -4,7 +4,7 @@
 <html lang="zh-en">
 <head>
 <meta charset="utf-8">
-<title>冰果英语词汇本—正常模式</title>
+<title>英语词汇本—正常模式</title>
 
 <script src="/voc_book/res/js/jquery-1.8.2.min.js"
 	type="text/javascript"></script>

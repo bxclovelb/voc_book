@@ -3,15 +3,15 @@
 <div class="navbar navbar-fixed-top">
 	<div class="navbar-inner">
 		<img src="/voc_info/res/images/bingo.png" style="float: left"> <a
-			class="brand" href="###">冰果英语</a>
+			class="brand" href="javascript:void(0);">英语</a>
 		<ul class="nav">
-			<li><a href="###" onclick="goToVocInfo();">个人词汇信息</a>
+			<li><a href="javascript:void(0);" onclick="goToVocInfo();">个人词汇信息</a>
 			</li>
-			<li class="active"><a id="a_vocbook" href="###">词汇本</a>
+			<li class="active"><a id="a_vocbook" href="javascript:void(0);">词汇本</a>
 			</li>
-			<li><a id="a_voc_test" href="###" onclick="goToVocTest();">词汇量测试</a>
+			<li><a id="a_voc_test" href="javascript:void(0);" onclick="goToVocTest();">词汇量测试</a>
 			</li>
-			<li><a id="a_voc_exe" href="###" onclick="goToVocExer();">词汇练习</a>
+			<li><a id="a_voc_exe" href="javascript:void(0);" onclick="goToVocExer();">词汇练习</a>
 			</li>
 			<li><a>|</a></li>
 			<li>
