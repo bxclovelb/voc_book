@@ -23,4 +23,7 @@ public interface UsersWordsDao {
 			int count);
 	public BigInteger getWordsCountCategory(int theBand, int catId);
 	public List<String> getWordsCategory(int theBand, int catId, int i, int j);
+	public boolean saveNotes(String userId, String word, String notes);
+	public int getUserNotesCount(String userId);
+	public List getUserNotes(String userId, int from, int count);
 }

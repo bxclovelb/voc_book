@@ -18,105 +18,103 @@ public class UsersWordsAction extends ActionSupport {
 	private String word = "";
 	private byte score = 0;
 	private int catId = 0;
+	private String notes = "";
 	
 	private UsersWordsService usersWordsService;
 	
 	private Map<String,Object> data;
 	
 	
-
+	
+	public String showNormal(){
+		return SUCCESS;
+	}
 	public UsersWordsAction() {
 		data = new HashMap<String,Object>();
 	}
-
 	public String getUserBand(){
 		theBand = usersWordsService.getUserBand(userId);
 		System.out.println("theBand:"+theBand);
 		return SUCCESS;
 	}
-	
 	public String getCountDiffDegree(){
 		data.clear();
 		data = usersWordsService.getCountDiffDegree(userId,model);
 		return SUCCESS;
 	}
-	
 	public String getWords(){
 		data = usersWordsService.getWords(userId,theBand,alphabet,pageNo);
 		return SUCCESS;
 	}
-	
 	public String getWordsCount(){
 		data = usersWordsService.getWordsCount(theBand,alphabet);
 		return SUCCESS;
 	}
-	
 	public String updateDegree(){
 		data = usersWordsService.updateDegree(userId,word);
 		return SUCCESS;
 	}
-	
 	public String getFirstDetail(){
 		data = usersWordsService.getFirstDetail(word);
 		return SUCCESS;
 	}
-	
 	public String getAssociation(){
 		data = usersWordsService.getAssociation(word);
 		return SUCCESS;
 	}
-	
 	public String getRelatedExercise(){
 		data = usersWordsService.getRelatedExercise(word);
 		return SUCCESS;
 	}
-	
 	public String updateDegreeByExer(){
 		usersWordsService.updateDegreeByExer(userId,word,score);
 		return SUCCESS;
 	}
-	
 	public String getDetails(){
 		data = usersWordsService.getDetails(word);
 		return SUCCESS;
 	}
-	
 	public String getNotes(){
 		data = usersWordsService.getNotes(userId,word);
 		return SUCCESS;
 	}
-	
-	
+	public String saveNotes(){
+		data = usersWordsService.saveNotes(userId,word.trim(),notes);
+		return SUCCESS;
+	}
 	public String showInverse(){
 		return SUCCESS;
 	}
-	
 	public String getWordsCountInverse(){
 		data = usersWordsService.getWordsCountInverse(alphabet,theBand);
 		return SUCCESS;
 	}
-	
 	public String getWordsInverse(){
 		data = usersWordsService.getWordsInverse(userId,theBand,alphabet,pageNo);
 		return SUCCESS;
 	}
-	
 	public String showCategory(){
 		return SUCCESS;
 	}
-	
 	public String getWordsCountCategory(){
 		data = usersWordsService.getWordsCountCategory(catId,theBand);
 		return SUCCESS;
 	}
-	
 	public String getWordsCategory(){
 		data = usersWordsService.getWordsCategory(catId,pageNo,userId,theBand);
 		return SUCCESS;
 	}
-	
-	
-	
+	public String showNotes(){
+		return SUCCESS;
+	}
+	public String getUserNotesCount(){
+		data = usersWordsService.getUserNotesCount(userId);
+		return SUCCESS;
+	}
+	public String getUserNotes(){
+		data = usersWordsService.getUserNotes(userId,pageNo);
+		return SUCCESS;
+	}
 	
 	
 	public String getUserId() {
@@ -186,6 +184,9 @@ public class UsersWordsAction extends ActionSupport {
 		this.catId = catId;
 	}
 
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
 	//@JSON(serialize=true)
 	public Map<String,Object> getData() {
 		return data;

@@ -16,7 +16,4 @@
 		$.getJSON("/voc_info/getRandomExers?numExer="+numExer,function(data){
 			window.location = "/voc_exer/showExpadding?userId="+userId+"&serialNumber=v-31-"+data.ids[0];	
 		});
-		/*$.getJSON("/voc_info/index.php/voc_info_c/get_random_exers/"+num_exer,function(data){
-			window.location = "/voc_exe/index.php/voc_exe_c/index/"+userId+"/v-31-"+data[0];	
-		});*/
 	}

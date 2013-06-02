@@ -4,17 +4,17 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
     <package name="vocbook" extends="json-default" namespace="/">
-		<action name="showNormal" class="action.UserAction" 
-			method="showNormal">
-			<result type="dispatcher">
-				WEB-INF/jsp/voc_book_normal_v.jsp
-			</result>
-		</action>
 		<action name="checkUserId" class="action.UserAction" 
 			method="checkUserId">
 			<result type="json"></result>
 		</action>
 		
+		<action name="showNormal" class="action.UsersWordsAction" 
+			method="showNormal">
+			<result type="dispatcher">
+				WEB-INF/jsp/voc_book_normal_v.jsp
+			</result>
+		</action>
 		<action name="getUserBand" class="action.UsersWordsAction" 
 			method="getUserBand">
 			<result type="json">
@@ -83,6 +83,12 @@
 				<param name="root">data</param>
 			</result>
 		</action>
+		<action name="saveNotes" class="action.UsersWordsAction" 
+			method="saveNotes">
+			<result type="json">
+				<param name="root">data</param>
+			</result>
+		</action>
 		
 		<action name="showInverse" class="action.UsersWordsAction" 
 			method="showInverse">
@@ -117,6 +123,25 @@
 		</action>
 		<action name="getWordsCategory" class="action.UsersWordsAction" 
 			method="getWordsCategory">
+			<result type="json">
+				<param name="root">data</param>
+			</result>
+		</action>
+		
+		<action name="showNotes" class="action.UsersWordsAction" 
+			method="showNotes">
+			<result type="dispatcher">
+				WEB-INF/jsp/voc_book_notes_v.jsp
+			</result>
+		</action>
+		<action name="getUserNotesCount" class="action.UsersWordsAction" 
+			method="getUserNotesCount">
+			<result type="json">
+				<param name="root">data</param>
+			</result>
+		</action>
+		<action name="getUserNotes" class="action.UsersWordsAction" 
+			method="getUserNotes">
 			<result type="json">
 				<param name="root">data</param>
 			</result>

@@ -404,4 +404,73 @@ public class UsersWordsDaoImpl extends BaseDao implements UsersWordsDao {
 		
 		return words;
 	}
+	
+	@Override
+	public boolean saveNotes(String userId, String word, String notes) {
+		Session session = getSessionFactory().openSession();
+		String sql = "SELECT * FROM vocbook_users_words"+
+				" WHERE user_id='"+userId+"' AND word='"+word+"'";
+		SQLQuery query = session.createSQLQuery(sql);
+		
+		int exist = query.list().size();
+		int count = 0;
+		
+		if(exist == 1){
+			sql = "UPDATE vocbook_users_words SET notes = '"+notes+"'"+
+					",create_date = '"+getNowDateTime()+"'"+
+					" WHERE user_id = '"+userId+"' AND word = '"+word+"'";
+			query = session.createSQLQuery(sql);
+			count = query.executeUpdate();
+		}else{
+			sql = "SELECT voc_id,alphabet,anti_alphabet,cat_id "+
+					"FROM vocbook_words WHERE voc_id = "+
+					"(SELECT MIN(voc_id) FROM vocbook_words WHERE word = '"+
+					word+"' AND order_id = 1)";
+			//System.out.println("SQL:"+sql);
+			query = session.createSQLQuery(sql);
+			Object[] wordInfo = (Object[])query.list().get(0);
+			
+			sql = "INSERT INTO vocbook_users_words(user_id,voc_id,degree,notes"+
+					",is_additional,create_date,alphabet,anti_alphabet,cat_id,word"+
+					",exercise_date) VALUES('"+userId+"',"+wordInfo[0]+",0,'"+
+					notes+"',0,'"+getNowDateTime()+"','"+wordInfo[1]+
+					"','"+wordInfo[2]+"',"+wordInfo[3]+",'"+word+"',null)";
+			query = session.createSQLQuery(sql);
+			count = query.executeUpdate();
+		}
+		
+		
+		session.close();
+		
+		if(count == 1){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	@Override
+	public int getUserNotesCount(String userId) {
+		Session session = getSessionFactory().openSession();
+		String sql = "SELECT COUNT(*) count FROM vocbook_users_words "+
+				"WHERE user_id = '"+userId+
+				"' AND notes IS NOT NULL and notes <> ''";
+		SQLQuery query = session.createSQLQuery(sql);
+		int count = Integer.parseInt(query.list().get(0).toString());
+		session.close();
+		
+		return count;
+	}
+	@Override
+	public List getUserNotes(String userId, int from, int count) {
+		Session session = getSessionFactory().openSession();
+		String sql = "SELECT word,notes,create_date FROM vocbook_users_words "+
+				"WHERE user_id = '"+userId+"' AND notes IS NOT NULL "+
+				"AND notes <> '' ORDER BY create_date desc LIMIT "+
+				from+","+count;
+		SQLQuery query = session.createSQLQuery(sql);
+		List notes = query.list();
+		session.close();
+		
+		return notes;
+	}
 }

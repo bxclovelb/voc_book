@@ -260,16 +260,16 @@
 	function saveNotes(){
 		if($("#notes").val() != null && $("#notes").val() != ""){
 			$.ajax({
-				url:"/voc_book/index.php/vocabulary_c/save_notes"+"/"+Math.random(),
+				url:"/voc_book/saveNotes?rand="+Math.random(),
 				type:"post",
 				dataType:"json",
 				data:{
-					user_id:userId,
+					userId:userId,
 					notes:$("#notes").val(),
 					word:$("#strong_details_title").text()
 				},
 				success:function(data,textStatus){
-					if(data){
+					if(data.success){
 						$("#div_message").html("保存成功！");
 						$("#div_message").dialog({
 							autoOpen:false,
@@ -374,7 +374,7 @@
 		}else if(model == 2){
 			window.location = "/voc_book/showCategory?userId="+userId+"&theBand="+band+"&model=2";
 		}else if(model == 3){
-			window.location = "/voc_book/showNotes/"+userId+"&theBand="+band+"&model=3";
+			window.location = "/voc_book/showNotes?userId="+userId+"&theBand="+band+"&model=3";
 		}
 	}
 	
@@ -599,4 +599,16 @@
 					}
 				);
 		}
+	}
+	
+	function exit(){
+		$.getJSON("/voc_info/logout",
+			function(data){
+			if(!data.success){
+				alert("未知错误！");
+			}else{
+				alert("退出成功！");
+				window.location = "/voc_info/showLogin";
+			}
+		});
 	}

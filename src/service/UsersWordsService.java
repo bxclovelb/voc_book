@@ -1,6 +1,7 @@
 package service;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -157,6 +158,39 @@ public class UsersWordsService {
 		
 		return data;
 	}
+	public Map<String, Object> saveNotes(String userId, String word,
+			String notes) {
+		Map data = new HashMap();
+		
+		boolean success = usersWordsDao.saveNotes(userId, word, notes);
+		data.put("success", success);
+		
+		return data;
+	}
+	public Map<String, Object> getUserNotesCount(String userId) {
+		Map data = new HashMap();
+		
+		int count = usersWordsDao.getUserNotesCount(userId);
+		data.put("count", count);
+		
+		return data;
+	}
+	public Map<String, Object> getUserNotes(String userId, int pageNo) {
+		Map data = new HashMap();
+		
+		List<Object[]> notes = usersWordsDao.getUserNotes(userId,(pageNo-1)*10,10);
+		data.put("result", notes);
+		List<String> words = new ArrayList<String>();
+		for(Object[] objs : notes){
+			String word = (String)objs[0];
+			words.add(word);
+		}
+		List<Byte> degrees = usersWordsDao.getDegrees(userId,words);
+		data.put("degree",degrees);
+		
+		return data;
+	}
+	
 	
 
 	public UsersWordsDao getUsersWordsDao() {

@@ -7,10 +7,6 @@ public class UserAction extends ActionSupport{
 	private int model = 0;
 	private int theBand = 0;
 
-	public String showNormal(){
-		return SUCCESS;
-	}
-	
 	public String checkUserId(){
 		
 		return SUCCESS;
